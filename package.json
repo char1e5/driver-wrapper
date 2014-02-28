@@ -17,7 +17,7 @@
   },
   "main": "lib/driverwrapper.js",
   "scripts": {
-    "test": "mocha -R spec ../spec/mocha-test.js -r selenium-webdriver -r chai;"},
+    "test": "mocha -R spec spec/mocha-test.js;"},
   "dependencies": {
     "selenium-webdriver": "~2.40.0"
   },
