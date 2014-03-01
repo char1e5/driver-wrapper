@@ -1,6 +1,6 @@
 var expect = require('chai').expect,
-    driver = require('../lib/driverwrapper'),
-    test = require('../lib/runner'),
+    driver = require('../../lib/driverwrapper'),
+    test = require('../../lib/runner'),
     fs = require('fs');
 
 
@@ -8,6 +8,7 @@ var expect = require('chai').expect,
 
 test.describe('OpenTable Location Search', function() {
   var browser;
+  var screenPath = './spec/screenshots/';
 
   test.before(function(){
     browser = driver.getBrowser('chrome');
@@ -17,29 +18,19 @@ test.describe('OpenTable Location Search', function() {
     driver.quit(browser);
   });
 
-  test.it('should get restaurant search results', function() {
-    browser.get('http://m.opentable.com');
-    browser.resize(1024,768);
-    browser.saveScreenshot('out0.png', fs);
-    browser.getTitle().then(function(title) {
-      expect(title).to.equal('Restaurants and Restaurant Reservations | OpenTable');
-    });
-  });
-
-
   test.it('should append query to title', function() {
     browser.get('http://m.opentable.com/#/location');
     browser.resize(320,600);
 
-    var locationInput = browser.ById('input-location');
-    var searchButton = browser.ById('button-search'); 
-    browser.saveScreenshot('out1.png', fs);
+    var locationInput = browser.id('input-location');
+    var searchButton = browser.css('#button-search'); 
+    browser.saveScreenshot(screenPath + 'out0.png', fs);
 
     locationInput.click();
     locationInput.sendKeys('San Francisco, CA, United States');
 
     browser.resize(768,1024);
-    browser.saveScreenshot('out2.png', fs);
+    browser.saveScreenshot(screenPath + 'out1.png', fs);
     searchButton.click();
 
     browser.wait(function() {
